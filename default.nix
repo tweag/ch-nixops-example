@@ -1,5 +1,5 @@
 { mkDerivation, base, directory, distributed-process, filepath
-, stdenv
+, network-transport-tcp, stdenv
 }:
 mkDerivation {
   pname = "dp-nixops-example";
@@ -8,7 +8,7 @@ mkDerivation {
   isLibrary = false;
   isExecutable = true;
   executableHaskellDepends = [
-    base directory distributed-process filepath
+    base directory distributed-process filepath network-transport-tcp
   ];
   license = stdenv.lib.licenses.bsd3;
 }
