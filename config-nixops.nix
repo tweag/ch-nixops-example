@@ -13,7 +13,7 @@
         serviceConfig = {
           Type = "forking";
           User = "root";
-          ExecStart = ''${hwer}/bin/${hwer.pname}-exe'';
+          ExecStart = ''${hwer}/bin/${hwer.pname}'';
         };
       };
     };
