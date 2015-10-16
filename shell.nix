@@ -1,2 +1,3 @@
 { haskellPackages ? (import <nixpkgs> {}).haskellPackages }:
-haskellPackages.callPackage (import ./.) {}
+(haskellPackages.callPackage (import ./.) {}).env
+

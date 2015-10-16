@@ -18,3 +18,11 @@ is changed:
 ```
 nixops deploy -d test-dp
 ```
+
+To hack around with GHCi:
+
+```
+nix-shell  # uses the shell.nix file
+ghci
+```
+
