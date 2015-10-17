@@ -1,4 +1,4 @@
-Following the examples of https://nixos.org/nixops/manual.
+Following the examples of https://nixos.org/nixops/manual and https://nixos.org/wiki/NixOS:extend_NixOS (for services config).
 
 First install NixOps:
 

@@ -12,7 +12,8 @@
       systemd.services.hwer = {
         wantedBy = ["multi-user.target"];
         serviceConfig = {
-          Type = "forking";
+          Type = "simple";  # See
+                             # http://www.freedesktop.org/software/systemd/man/systemd.service.html#Options for Type
           User = "root";
           ExecStart = ''${hwer}/bin/${hwer.pname}'';
         };
