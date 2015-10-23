@@ -8,6 +8,7 @@ import Network.Transport.TCP (createTransport, defaultTCPParameters)
 import Control.Distributed.Process
 import Control.Distributed.Process.Node
 
+main :: IO ()
 main = do
   d <- getHomeDirectory
   putStrLn $ "Dir: " ++ d
@@ -24,5 +25,5 @@ main = do
          msg <- expect :: Process String
          send pid1 $ "You said: " ++ msg
        return ())
-  runProcess node $ do _ <- expect :: Process String
+  runProcess node $ do _ <- expect :: Process ()
                        return ()
