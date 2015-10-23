@@ -11,17 +11,17 @@ import Control.Distributed.Process.Node
 main :: IO ()
 main = do
   d <- getHomeDirectory
-  putStrLn $ "Dir: " ++ d
   Right t <- createTransport "127.0.0.1" "10501" defaultTCPParameters
   node <- newLocalNode t initRemoteTable
   (mdo pid1 <- forkProcess node $ do
-         liftIO $ print pid1
+         say $ "Dir: " ++ d
+         say $ show pid1
          send pid2 "hello"
          hello <- expect :: Process String
-         liftIO $ do putStrLn $ "Received: " ++ hello
-                     appendFile (d </> "plop.txt") hello
+         say $ "Received: " ++ hello
+         liftIO $ appendFile (d </> "plop.txt" ) (hello++"\n")
        pid2 <- forkProcess node $ do
-         liftIO $ print pid2
+         say $ show pid2
          msg <- expect :: Process String
          send pid1 $ "You said: " ++ msg
        return ())
