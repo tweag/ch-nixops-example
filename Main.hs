@@ -1,3 +1,4 @@
+{-# LANGUAGE TemplateHaskell #-}
 
 module Main where
 
@@ -8,6 +9,7 @@ import Data.Time.Clock (getCurrentTime)
 import Data.Time.Format (formatTime, defaultTimeLocale)
 import Network.Transport.TCP (createTransport, defaultTCPParameters)
 import Control.Distributed.Process
+import Control.Distributed.Process.Closure
 import Control.Distributed.Process.Node
 
 -- | @ping d pid1 pid@ sends a message to @pid@ and waits for a
@@ -41,14 +43,30 @@ logger f = do
            time <- getCurrentTime
            return $ "\n== " ++ formatTime defaultTimeLocale "%c" time ++ " ==\n"
 
+
+--
+-- Template Haskell boilerplate for serialisation
+--
+
+remotable ['ping, 'pong, 'logger]
+
+--
+-- /boilerplate
+--
+
 main :: IO ()
 main = do
   d <- getHomeDirectory
   Right t <- createTransport "127.0.0.1" "10501" defaultTCPParameters
-  node <- newLocalNode t initRemoteTable
-  logpid <- forkProcess node $ logger (d </> "hwer.log")
-  runProcess node $ reregister "logger" logpid
-  runProcess node $ say $ "Dir: " ++ d
-  pongpid <- forkProcess node $ pong
-  _ <- forkProcess node $ ping pongpid
-  runProcess node $ expect
+  node <- newLocalNode t rtable
+  let nodeid = localNodeId node
+  runProcess node $ do
+    logpid <- spawn nodeid $ $(mkClosure 'logger) (d </> "hwer.log")
+    reregister "logger" logpid
+    say $ "Dir: " ++ d
+    pongpid <- spawn nodeid $ $(mkStaticClosure 'pong)
+    _ <- spawn nodeid $ $(mkClosure 'ping) pongpid
+    expect
+  where
+    rtable :: RemoteTable
+    rtable = __remoteTable initRemoteTable
