@@ -54,12 +54,15 @@ logger f = do
            time <- getCurrentTime
            return $ "\n== " ++ formatTime defaultTimeLocale "%c" time ++ " ==\n"
 
+registerAsLogger :: ProcessId -> Process ()
+registerAsLogger pid =
+  reregister "logger" pid
 
 --
 -- Template Haskell boilerplate for serialisation
 --
 
-remotable ['ping, 'pong, 'logger]
+remotable ['ping, 'pong, 'logger, 'registerAsLogger]
 
 --
 -- /boilerplate
@@ -91,10 +94,9 @@ dispatch [] rtable = do
   node <- newLocalNode t rtable
   runProcess node $ do
     logpid <- spawn helloworlderid $ $(mkClosure 'logger) (d </> "hwer.log")
-    reregister "logger" logpid
+    registerAsLogger logpid
     say $ "Dir: " ++ d
-    say $ show helloworlderid
-    say $ show pongerid
+    () <- call $(functionTDict 'registerAsLogger) pongerid $ $(mkClosure 'registerAsLogger) logpid
     pongpid <- spawn pongerid $ $(mkStaticClosure 'pong)
     say "pong spawned"
     _ <- spawn helloworlderid $ $(mkClosure 'ping) pongpid
