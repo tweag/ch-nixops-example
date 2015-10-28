@@ -58,6 +58,22 @@ nixops ssh helloworlder -d test-dp
 The traces are logged (with timestamps) in `hwer.log` in the home
 directory (of the `helloworlder` machine).
 
+## Turn the cluster off ##
+
+The cluster can be turned off with
+```
+nixops stop -d test-dp
+```
+Alternatively, it can be torn down with
+```
+nixops destroy -d test-dp
+```
+
+After using `nixops destroy` the `test-dp` logical deployment still
+exists though every associated resource have been cleaned up. To
+completely remove it from NixOps memory use `nixops delete -d
+test-dp`.
+
 ## Advanced ##
 
 To hack around with GHCi:
