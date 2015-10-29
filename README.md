@@ -20,17 +20,19 @@ named "vboxnet0" (if you already have a network named "vboxnet0" use
 it instead of creating a new one).
 
 Click the "Edit" button, go to the `DHCP Server` tab. There enable the
-server. Make sure that the `Server address` is the `IPv4 Address` from
-the `Adapter` tab. The `Server Mask` should be `255.255.255.0`.
+server. The default configuration works fine, but sometimes it isn't filled automatically. In that case here is said default
 
-Also choose an appropriate range for alocated addresses. For instance
-if your `Server Address` is `192.168.56.1` a good range is
-`192.168.56.100` to `192.168.56.200`.
+- `Server address`: `192.168.56.100` (in which case the `IPv4
+   Address` from the `Adapter` tab is `192.168.56.1).
+- `Server Mask`: `255.255.255.0`.
+- `Lower Address Bound`: `192.168.56.101`
+- `Upper Address Bound`: `192.168.56.200`
 
 > remark: there is also a command-line way, to be documented.
 
 Make sure that the (newly created) `vboxnet0` interface on your host
-computer is up with IP address the `Server Address`.
+computer is up with IP address the `IPv4 Address` from the `Adapter`
+tab.
 
 ## Deploy the cluster ##
 
