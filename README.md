@@ -30,10 +30,6 @@ server. The default configuration works fine, but sometimes it isn't filled auto
 
 > remark: there is also a command-line way, to be documented.
 
-Make sure that the (newly created) `vboxnet0` interface on your host
-computer is up with IP address the `IPv4 Address` from the `Adapter`
-tab.
-
 ## Deploy the cluster ##
 
 Create the deployment with
