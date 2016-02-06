@@ -1,3 +1,7 @@
+**DISCLAIMER: this is not an official Tweag I/O product.**
+
+# Example deployment of Cloud Haskell app using NixOps
+
 ## Install NixOps ##
 
 You need the Nix package manager installed (see [instructions
@@ -83,4 +87,5 @@ ghci
 
 ## References ##
 
-- Examples of https://nixos.org/nixops/manual and https://nixos.org/wiki/NixOS:extend_NixOS (for services config).
+- Examples of https://nixos.org/nixops/manual and
+  https://nixos.org/wiki/NixOS:extend_NixOS (for services config).
