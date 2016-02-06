@@ -2,7 +2,7 @@
 , network-transport-tcp, stdenv
 }:
 mkDerivation {
-  pname = "dp-nixops-example";
+  pname = "ch-nixops-example";
   version = "0.1.0.0";
   src = ./.;
   isLibrary = false;
