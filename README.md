@@ -27,7 +27,7 @@ Click the "Edit" button, go to the `DHCP Server` tab. There enable the
 server. The default configuration works fine, but sometimes it isn't filled automatically. In that case here is said default
 
 - `Server address`: `192.168.56.100` (in which case the `IPv4
-   Address` from the `Adapter` tab is `192.168.56.1).
+   Address` from the `Adapter` tab is `192.168.56.1`).
 - `Server Mask`: `255.255.255.0`.
 - `Lower Address Bound`: `192.168.56.101`
 - `Upper Address Bound`: `192.168.56.200`
